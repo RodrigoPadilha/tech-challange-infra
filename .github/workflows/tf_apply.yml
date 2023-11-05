@@ -11,8 +11,8 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
-  plan-prod:
-    name: "terraform plan prod"
+  apply-prod:
+    name: "terraform apply prod"
     runs-on: ubuntu-latest
     #    env:
     #      MINHA_VAR: "MEU_VALOR"

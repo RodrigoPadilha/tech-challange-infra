@@ -1,7 +1,7 @@
 module "prod" {
   source = "../../infra"
 
-  environment       = "Prod"
+  environment       = "prod"
   repository_name   = "order-ecr"
   responsibilityIAM = "prod"
 }

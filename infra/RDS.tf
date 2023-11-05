@@ -2,7 +2,7 @@ resource "aws_db_instance" "rds-instance" {
   allocated_storage    = 20
   storage_type        = "gp2"
   engine               = "postgres"
-  engine_version       = "13.4"
+  engine_version       = "14.9"
   instance_class       = "db.t2.micro"
   
   db_name              = "tech_fase_1"
