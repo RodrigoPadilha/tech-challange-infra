@@ -10,7 +10,7 @@ variable "responsibilityIAM" {
 
 variable "environment" {
   type = string
-  default = "Prod"
+  default = "prod"
 }
 
 variable "aws_region" {
