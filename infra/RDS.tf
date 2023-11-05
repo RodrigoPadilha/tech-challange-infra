@@ -11,7 +11,7 @@ resource "aws_db_instance" "rds-instance" {
   
   parameter_group_name = "default.postgres13"
 
-  vpc_security_group_ids = [aws_security_group.rds.id]
+  vpc_security_group_ids = [aws_security_group.private.id]
   
   backup_retention_period = 7
   skip_final_snapshot     = true
