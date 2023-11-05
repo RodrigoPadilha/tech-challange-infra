@@ -3,7 +3,7 @@ resource "aws_db_instance" "rds-instance" {
   storage_type        = "gp2"
   engine               = "postgres"
   engine_version       = "14.9"
-  instance_class       = "db.t2.micro"
+  instance_class       = "db.t3.micro"
   
   db_name              = "tech_fase_1"
   username             = "tech1"
