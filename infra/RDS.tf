@@ -6,8 +6,8 @@ resource "aws_db_instance" "rds-instance" {
   instance_class       = "db.t3.micro"
   
   db_name              = "tech_fase_1"
-  username             = "tech1"
-  password             = "tech1"
+  username             = "tech1@123"
+  password             = "tech1@123"
   
   parameter_group_name = "default.postgres13"
 
