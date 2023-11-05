@@ -13,30 +13,30 @@ jobs:
   plan-prod:
     name: "terraform plan prod"
     runs-on: ubuntu-latest
-  #    env:
-  #      MINHA_VAR: "MEU_VALOR"
+    #    env:
+    #      MINHA_VAR: "MEU_VALOR"
 
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
 
-    - name: Terraform fmt
-      id: fmt
-      run: terraform -chdir=env/prod fmt -check
-      continue-on-error: true
+      - name: Terraform fmt
+        id: fmt
+        run: terraform -chdir=env/prod fmt -check
+        continue-on-error: true
 
-    - name: Terraform Init
-      id: init
-      run: terraform -chdir=env/prod init
+      - name: Terraform Init
+        id: init
+        run: terraform -chdir=env/prod init
 
-    - name: Terraform Validate
-      id: validate
-      run: terraform -chdir=env/prod validate -no-color
+      - name: Terraform Validate
+        id: validate
+        run: terraform -chdir=env/prod validate -no-color
 
-    - name: Terraform Plan
-      id: plan
-      run: terraform -chdir=env/prod plan -no-color
-      continue-on-error: true
+      - name: Terraform Plan
+        id: plan
+        run: terraform -chdir=env/prod plan -no-color
+        continue-on-error: true
