@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       dir:
-        description: "Directory with resources to be destroyed"
+        description: "Directory with resources to be applyed"
         required: true
         default: "env/prod"
 
