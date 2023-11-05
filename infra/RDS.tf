@@ -1,4 +1,4 @@
-resource "aws_db_instance" "rds-instance" {
+resource "aws_db_instance" "rds-instance" {    
   allocated_storage    = 20
   storage_type        = "gp2"
   engine               = "postgres"
@@ -9,8 +9,7 @@ resource "aws_db_instance" "rds-instance" {
   username             = "tech1"
   password             = "tech1_123"
   
-#  parameter_group_name = "default.postgres13"
-
+  # parameter_group_name = "default.postgres13"
   # vpc_security_group_ids = [aws_security_group.private.id]
   db_subnet_group_name = aws_db_subnet_group.db_subnet.id
   
