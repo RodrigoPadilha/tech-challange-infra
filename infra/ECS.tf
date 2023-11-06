@@ -33,6 +33,24 @@ resource "aws_ecs_task_definition" "api-task" {
                     "hostPort" = 3000
                     }
                 ],
+                "environment" = [
+                  {
+                    "name" = "DATABASE_URL"
+                    "value" = "postgresql://${aws_ssm_parameter.db_username.value}:${aws_ssm_parameter.db_password.value}@${aws_db_instance.rds-instance.endpoint}:5432/${aws_ssm_parameter.db_name.value}?schema=public"
+                  },
+                  {
+                    "name" = "DB_USERNAME",
+                    "value" = aws_ssm_parameter.db_username.value
+                  },
+                  {
+                    "name" = "DB_PASSWORD",
+                    "value" = aws_ssm_parameter.db_password.value
+                  },
+                  {
+                    "name" = "DB_NAME",
+                    "value" = aws_ssm_parameter.db_name.value
+                  }
+                ]
             }
         ]
     )

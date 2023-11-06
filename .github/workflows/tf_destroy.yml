@@ -28,17 +28,17 @@ jobs:
 
       - name: Terraform fmt
         id: fmt
-        run: terraform fmt -check
+        run: terraform -chdir=env/prod fmt -check
         continue-on-error: true
 
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform -chdir=env/prod init
 
       - name: Terraform Validate
         id: validate
-        run: terraform validate -no-color
+        run: terraform -chdir=env/prod validate -no-color
 
       - name: Terraform Destroy
         id: destroy
-        run: terraform destroy -auto-approve
+        run: terraform -chdir=env/prod destroy -auto-approve

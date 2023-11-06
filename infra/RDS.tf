@@ -5,9 +5,9 @@ resource "aws_db_instance" "rds-instance" {
   engine_version       = "14.9"
   instance_class       = "db.t3.micro"
   
-  db_name              = "tech_fase_1"
-  username             = "tech1"
-  password             = "tech1_123"
+  db_name              = aws_ssm_parameter.db_name.value
+  username             = aws_ssm_parameter.db_username.value
+  password             = aws_ssm_parameter.db_password.value
   
   # parameter_group_name = "default.postgres13"
   # vpc_security_group_ids = [aws_security_group.private.id]
