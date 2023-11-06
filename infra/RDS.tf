@@ -1,9 +1,10 @@
 resource "aws_db_instance" "rds-instance" {    
   allocated_storage    = 20
-  storage_type        = "gp2"
+  storage_type         = "gp2"
   engine               = "postgres"
   engine_version       = "14.9"
   instance_class       = "db.t3.micro"
+  identifier           = "tech-challenge-db"
   
   db_name              = aws_ssm_parameter.db_name.value
   username             = aws_ssm_parameter.db_username.value
