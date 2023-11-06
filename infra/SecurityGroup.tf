@@ -35,7 +35,7 @@ resource "aws_security_group_rule" "inbound_ecs" {
   from_port         = 3000
   to_port           = 3000
   protocol          = "tcp"
-  source_security_group_id = aws_security_group.alb.id
+  source_security_group_id = aws_security_group.alb.id # Restringe o acesso de requisições apenas a rede pública
   security_group_id = aws_security_group.private.id
 }
 
@@ -45,30 +45,30 @@ resource "aws_security_group_rule" "outbound_ecs" {
   to_port           = 0 # qualquer porta
   protocol          = "-1" #qualquer protocolo
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.alb.id
+  security_group_id = aws_security_group.private.id
 }
 
 ### Rede do RDS ####
-resource "aws_security_group" "rds" {
-  name        = "rds-security-group"
-  description = "RDS security group"
-  vpc_id      = module.vpc.vpc_id
-}
-
-resource "aws_security_group_rule" "inbound_rds" {
-  type              = "ingress"
-  from_port         = 5432
-  to_port           = 5432
-  protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.private.id
-}
-
-resource "aws_security_group_rule" "outbound_rds" {
-  type              = "egress"
-  from_port         = 5432
-  to_port           = 5432
-  protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.private.id
-}
+# resource "aws_security_group" "rds" {
+#   name        = "rds-security-group"
+#   description = "RDS security group"
+#   vpc_id      = module.vpc.vpc_id
+# }
+# 
+# resource "aws_security_group_rule" "inbound_rds" {
+#   type              = "ingress"
+#   from_port         = 5432
+#   to_port           = 5432
+#   protocol          = "tcp"
+#   source_security_group_id = aws_security_group.private.id  # Restringe o acesso de requisições apenas a rede privada
+#   security_group_id = aws_security_group.private.id
+# }
+# 
+# resource "aws_security_group_rule" "outbound_rds" {
+#   type              = "egress"
+#   from_port         = 5432
+#   to_port           = 5432
+#   protocol          = "tcp"
+#   cidr_blocks       = ["0.0.0.0/0"]
+#   security_group_id = aws_security_group.private.id
+# }
