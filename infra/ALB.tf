@@ -3,7 +3,7 @@ resource "aws_lb" "alb" {
   internal           = true # Default é false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
-  subnets            = module.vpc.public_subnets # module.vpc.private_subnets
+  subnets            = module.vpc.private_subnets   # module.vpc.public_subnets
 }
 
 resource "aws_lb_target_group" "orders-tg" {
