@@ -8,7 +8,7 @@ resource "aws_lb" "alb" {
 
 resource "aws_lb_target_group" "orders-tg" {
   name        = "orders-tg"
-  port        = 80
+  port        = 3000
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = module.vpc.vpc_id
@@ -16,7 +16,7 @@ resource "aws_lb_target_group" "orders-tg" {
 
 resource "aws_lb_listener" "listener-http" {
   load_balancer_arn = aws_lb.alb.arn
-  port              = "80"
+  port              = "3000"
   protocol          = "HTTP"
   
   default_action {
