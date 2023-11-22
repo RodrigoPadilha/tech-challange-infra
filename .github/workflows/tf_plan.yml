@@ -1,9 +1,15 @@
 name: Create Terraform Plan
 
 on:
-  pull_request:
-    branches:
-      - main
+#  pull_request:
+#    branches:
+#      - main
+  workflow_dispatch:
+    inputs:
+      dir:
+        description: "Directory with resources to be applyed"
+        required: true
+        default: "env/prod"    
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
