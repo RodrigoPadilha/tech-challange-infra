@@ -3,7 +3,7 @@ resource "aws_lb" "alb" {
   internal           = true # Default é false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
-  subnets            = module.vpc.private_subnets   # module.vpc.public_subnets
+  subnets            = aws_vpc.this # module.vpc.private_subnets # module.vpc.public_subnets
 }
 
 resource "aws_lb_target_group" "orders-tg" {
@@ -11,14 +11,14 @@ resource "aws_lb_target_group" "orders-tg" {
   port        = 3000
   protocol    = "HTTP"
   target_type = "ip"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = aws_vpc.this # module.vpc.vpc_id
 }
 
 resource "aws_lb_listener" "listener-http" {
   load_balancer_arn = aws_lb.alb.arn
   port              = "3000"
   protocol          = "HTTP"
-  
+
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.orders-tg.id
@@ -26,5 +26,5 @@ resource "aws_lb_listener" "listener-http" {
 }
 
 output "IP" {
-    value = aws_lb.alb.dns_name
+  value = aws_lb.alb.dns_name
 }

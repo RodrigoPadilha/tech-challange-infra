@@ -1,5 +1,5 @@
 module "ecs" {
-  source = "terraform-aws-modules/ecs/aws" 
+  source = "terraform-aws-modules/ecs/aws"
 
   cluster_name = var.environment
   fargate_capacity_providers = {
@@ -19,41 +19,41 @@ resource "aws_ecs_task_definition" "api-task" {
   cpu                      = 256
   memory                   = 512
   execution_role_arn       = aws_iam_role.responsibility.arn
-  container_definitions    = jsonencode(
-        [
-            {
-                "name" = var.environment
-                "image" = "${aws_ecr_repository.repository.repository_url}:latest"
-                "cpu" = 256
-                "memory" = 512
-                "essential" = true
-                "portMappings" = [
-                    {
-                    "containerPort" = 3000
-                    "hostPort" = 3000
-                    }
-                ],
-                "environment" = [
-                  {
-                    "name" = "DATABASE_URL"
-                    "value" = "postgresql://${aws_ssm_parameter.db_username.value}:${aws_ssm_parameter.db_password.value}@${aws_db_instance.rds-instance.endpoint}:5432/${aws_ssm_parameter.db_name.value}?schema=public"
-                  },
-                  {
-                    "name" = "DB_USERNAME",
-                    "value" = aws_ssm_parameter.db_username.value
-                  },
-                  {
-                    "name" = "DB_PASSWORD",
-                    "value" = aws_ssm_parameter.db_password.value
-                  },
-                  {
-                    "name" = "DB_NAME",
-                    "value" = aws_ssm_parameter.db_name.value
-                  }
-                ]
-            }
+  container_definitions = jsonencode(
+    [
+      {
+        "name"      = var.environment
+        "image"     = "${aws_ecr_repository.repository.repository_url}:latest"
+        "cpu"       = 256
+        "memory"    = 512
+        "essential" = true
+        "portMappings" = [
+          {
+            "containerPort" = 3000
+            "hostPort"      = 3000
+          }
+        ],
+        "environment" = [
+          {
+            "name"  = "DATABASE_URL"
+            "value" = "postgresql://${aws_ssm_parameter.db_username.value}:${aws_ssm_parameter.db_password.value}@${aws_db_instance.rds-instance.endpoint}:5432/${aws_ssm_parameter.db_name.value}?schema=public"
+          },
+          {
+            "name"  = "DB_USERNAME",
+            "value" = aws_ssm_parameter.db_username.value
+          },
+          {
+            "name"  = "DB_PASSWORD",
+            "value" = aws_ssm_parameter.db_password.value
+          },
+          {
+            "name"  = "DB_NAME",
+            "value" = aws_ssm_parameter.db_name.value
+          }
         ]
-    )
+      }
+    ]
+  )
 
   # runtime_platform {
   #   operating_system_family = "LINUX"
@@ -74,8 +74,8 @@ resource "aws_ecs_service" "api-service" {
   }
 
   network_configuration {
-    subnets = module.vpc.private_subnets
-    security_groups = [aws_security_group.private.id]
+    subnets          = aws_vpc.this # module.vpc.private_subnets
+    security_groups  = [aws_security_group.private.id]
     assign_public_ip = true
   }
 

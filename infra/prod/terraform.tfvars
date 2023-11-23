@@ -1,0 +1,10 @@
+region          = "us-east-1"
+env             = "prod"
+app_port        = 80
+app_count       = 3
+fargate_cpu     = 512
+fargate_memory  = 512
+ac_min_capacity = 3
+ac_max_capacity = 6
+log_retentin    = 30
+cidrblock       = ""
